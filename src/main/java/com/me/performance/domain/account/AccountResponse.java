@@ -11,7 +11,13 @@ public record AccountResponse(Long id,
 ) {
 
     public static AccountResponse from(Account account) {
-        return new AccountResponse(account.getId(), account.getAccountNumber(), account.getOwnerName(), account.getBalance(), account.getCreatedAt());
+        return new AccountResponse(
+            account.getId(),
+            account.getAccountNumber(),
+            account.getOwnerName(),
+            account.getBalance(),
+            account.getCreatedAt()
+        );
     }
 
 }

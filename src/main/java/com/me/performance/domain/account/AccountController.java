@@ -19,9 +19,9 @@ public class AccountController {
         return accountService.readAll();
     }
 
-    @GetMapping("/{id}")
-    public AccountResponse getAccount(Long id) {
-        return accountService.read(id);
+    @GetMapping("/{accountId}")
+    public AccountResponse getAccount(Long accountId) {
+        return accountService.read(accountId);
     }
 
     @PostMapping

@@ -28,12 +28,6 @@ public class Account {
     private BigDecimal balance;
     private LocalDateTime createdAt;
 
-    private Account(String accountNumber, String ownerName, BigDecimal balance) {
-        this.accountNumber = accountNumber;
-        this.ownerName = ownerName;
-        this.balance = balance;
-    }
-
     public static Account create(String ownerName, BigDecimal initialBalance, AccountGenerator accountGenerateNumber) {
         Account account = new Account();
         account.accountNumber = accountGenerateNumber.generateUniqNumber();

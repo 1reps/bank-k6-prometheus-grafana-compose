@@ -15,25 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 public class PaymentController {
 
     private final PaymentService paymentService;
+    private final PaymentManager paymentManager;
 
     @GetMapping
     public List<PaymentResponse> getPayments() {
         return paymentService.readAll();
     }
 
-    @GetMapping("/{id}")
-    public PaymentResponse getPayment(@PathVariable Long id) {
-        return paymentService.read(id);
+    @GetMapping("/{paymentId}")
+    public PaymentResponse getPayment(@PathVariable Long paymentId) {
+        return paymentService.read(paymentId);
     }
 
     @PostMapping("/deposit/{accountId}")
-    public PaymentResponse deposit(@PathVariable Long accountId, BigDecimal amount) {
-        return paymentService.deposit(accountId, amount);
+    public void deposit(@PathVariable Long accountId, BigDecimal amount) {
+        paymentManager.depositByAccount(accountId, amount);
     }
 
     @PostMapping("/withdrawal/{accountId}")
-    public PaymentResponse withdrawal(@PathVariable Long accountId, BigDecimal amount) {
-        return paymentService.withdrawal(accountId, amount);
+    public void withdrawal(@PathVariable Long accountId, BigDecimal amount) {
+        paymentManager.withdrawalByAccount(accountId, amount);
     }
 
 }

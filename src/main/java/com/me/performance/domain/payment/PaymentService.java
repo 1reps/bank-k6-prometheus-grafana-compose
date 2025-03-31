@@ -1,7 +1,6 @@
 package com.me.performance.domain.payment;
 
 import com.me.performance.domain.account.Account;
-import com.me.performance.domain.account.AccountRepository;
 import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -10,32 +9,26 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class PaymentService {
 
     private final PaymentRepository paymentRepository;
-    private final AccountRepository accountRepository;
     private final ReferenceNumberGenerator referenceNumberGenerator;
 
-    public PaymentResponse read(Long id) {
-        return paymentRepository.findById(id)
+    @Transactional(readOnly = true)
+    public PaymentResponse read(Long paymentId) {
+        return paymentRepository.findById(paymentId)
             .map(PaymentResponse::from)
-            .orElseThrow(() -> new IllegalArgumentException("Payment not found id=" + id));
+            .orElseThrow(() -> new IllegalArgumentException("Payment not found paymentId=" + paymentId));
     }
 
+    @Transactional(readOnly = true)
     public List<PaymentResponse> readAll() {
         return paymentRepository.findAll().stream()
             .map(PaymentResponse::from)
             .toList();
     }
 
-    @Transactional
-    public PaymentResponse deposit(Long accountId, BigDecimal amount) {
-        Account account = accountRepository.findById(accountId)
-            .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다. id=" + accountId));
-
-        account.increaseBalance(amount);
-
+    public void deposit(Account account, BigDecimal amount) {
         Payment newDeposit = Payment.createDeposit(
             referenceNumberGenerator.generateDepositReferenceNumber(),
             account,
@@ -43,17 +36,10 @@ public class PaymentService {
             null
         );
 
-        Payment savedPayment = paymentRepository.save(newDeposit);
-        return PaymentResponse.from(savedPayment);
+        PaymentResponse.from(paymentRepository.save(newDeposit));
     }
 
-    @Transactional
-    public PaymentResponse withdrawal(Long accountId, BigDecimal amount) {
-        Account account = accountRepository.findById(accountId)
-            .orElseThrow(() -> new IllegalArgumentException("계좌를 찾을 수 없습니다. id=" + accountId));
-
-        account.decreaseBalance(amount);
-
+    public void withdrawal(Account account, BigDecimal amount) {
         Payment newWithdrawal = Payment.createWithdrawal(
             referenceNumberGenerator.generateWithdrawalReferenceNumber(),
             account,
@@ -61,8 +47,7 @@ public class PaymentService {
             null
         );
 
-        Payment savedPayment = paymentRepository.save(newWithdrawal);
-        return PaymentResponse.from(savedPayment);
+        PaymentResponse.from(paymentRepository.save(newWithdrawal));
     }
 
 }

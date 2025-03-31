@@ -14,10 +14,10 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final AccountGenerator accountGenerateNumber;
 
-    public AccountResponse read(Long id) {
-        return accountRepository.findById(id)
+    public AccountResponse read(Long accountId) {
+        return accountRepository.findById(accountId)
             .map(AccountResponse::from)
-            .orElseThrow(() -> new IllegalArgumentException("Account not found id=" + id));
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
     }
 
     public List<AccountResponse> readAll() {
@@ -32,4 +32,21 @@ public class AccountService {
         return AccountResponse.from(accountRepository.save(account));
     }
 
+    public Account verifyDepositBalance(Long accountId, BigDecimal amount) {
+        Account account = accountRepository.findById(accountId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
+
+        account.increaseBalance(amount);
+
+        return account;
+    }
+
+    public Account verifyWithdrawalBalance(Long accountId, BigDecimal amount) {
+        Account account = accountRepository.findById(accountId)
+            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
+
+        account.decreaseBalance(amount);
+
+        return account;
+    }
 }

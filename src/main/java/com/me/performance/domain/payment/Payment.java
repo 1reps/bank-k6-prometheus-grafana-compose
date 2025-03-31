@@ -41,16 +41,6 @@ public class Payment {
     private PaymentStatus status; // COMPLETED, FAILED
     private LocalDateTime createdAt;
 
-    private Payment(String referenceNumber, Account sourceAccount, Account targetAccount, BigDecimal amount, String description, PaymentType type, PaymentStatus status) {
-        this.referenceNumber = referenceNumber;
-        this.sourceAccount = sourceAccount;
-        this.targetAccount = targetAccount;
-        this.amount = amount;
-        this.description = description;
-        this.type = type;
-        this.status = status;
-    }
-
     public static Payment createDeposit(String referenceNumber, Account account, BigDecimal amount, String description) {
         Payment payment = new Payment();
         payment.referenceNumber = referenceNumber;
