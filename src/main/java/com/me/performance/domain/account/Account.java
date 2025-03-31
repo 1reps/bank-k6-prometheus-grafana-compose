@@ -38,19 +38,25 @@ public class Account {
     }
 
     public void increaseBalance(BigDecimal amount) {
-        // 최소금액 미달 조건
-        if (amount.compareTo(BigDecimal.valueOf(1000L)) <= 0) {
+        if (isLessThanMin(amount)) {
             throw new IllegalArgumentException("입금 최소 금액 미달. 요청 금액=" + amount);
         }
         balance = balance.add(amount);
     }
 
     public void decreaseBalance(BigDecimal amount) {
-        // 잔고가 요청한 금액보다 작으면
-        if (balance.compareTo(amount) < 0) {
+        if (isBalanceLessThan(amount)) {
             throw new IllegalStateException("잔액이 부족합니다. 현재 보유 잔액=" + balance + ", 요청한 차감액=" + amount);
         }
         balance = balance.subtract(amount);
+    }
+
+    private boolean isLessThanMin(BigDecimal amount) {
+        return amount.compareTo(BigDecimal.valueOf(1000L)) <= 0;
+    }
+
+    private boolean isBalanceLessThan(BigDecimal amount) {
+        return balance.compareTo(amount) < 0;
     }
 
 }
