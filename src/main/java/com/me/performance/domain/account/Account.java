@@ -1,4 +1,4 @@
-package com.me.performance.domain;
+package com.me.performance.domain.account;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

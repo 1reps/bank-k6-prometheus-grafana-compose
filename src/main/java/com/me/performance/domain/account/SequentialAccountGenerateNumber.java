@@ -1,4 +1,4 @@
-package com.me.performance.domain;
+package com.me.performance.domain.account;
 
 import java.util.concurrent.atomic.AtomicLong;
 import lombok.RequiredArgsConstructor;

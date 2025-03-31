@@ -1,4 +1,4 @@
-package com.me.performance.domain;
+package com.me.performance.domain.payment;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

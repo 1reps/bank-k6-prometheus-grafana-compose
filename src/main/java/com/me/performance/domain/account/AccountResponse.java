@@ -1,4 +1,4 @@
-package com.me.performance.domain;
+package com.me.performance.domain.account;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;

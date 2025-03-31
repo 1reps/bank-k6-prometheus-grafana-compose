@@ -2,9 +2,9 @@ package com.me.performance.concurrency;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.me.performance.domain.Account;
-import com.me.performance.domain.AccountRepository;
-import com.me.performance.domain.AccountService;
+import com.me.performance.domain.account.Account;
+import com.me.performance.domain.account.AccountRepository;
+import com.me.performance.domain.account.AccountService;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;

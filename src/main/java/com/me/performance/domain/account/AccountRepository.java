@@ -1,4 +1,4 @@
-package com.me.performance.domain;
+package com.me.performance.domain.account;
 
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;

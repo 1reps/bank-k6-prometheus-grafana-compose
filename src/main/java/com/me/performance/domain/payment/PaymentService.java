@@ -1,4 +1,4 @@
-package com.me.performance.domain;
+package com.me.performance.domain.payment;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
