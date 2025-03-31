@@ -39,7 +39,7 @@ public class Account {
 
     public void increaseBalance(BigDecimal amount) {
         // 최소금액 미달 조건
-        if (amount.compareTo(new BigDecimal("1000")) <= 0) {
+        if (amount.compareTo(BigDecimal.valueOf(1000L)) <= 0) {
             throw new IllegalArgumentException("입금 최소 금액 미달. 요청 금액=" + amount);
         }
         balance = balance.add(amount);
