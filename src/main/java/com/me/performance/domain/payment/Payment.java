@@ -10,11 +10,13 @@ import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 @Table(name = "payments")
 @Entity
+@Getter
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString(exclude = {"sourceAccount", "targetAccount"})
 public class Payment {
@@ -25,7 +27,7 @@ public class Payment {
 
     private String referenceNumber;
 
-    // 자금이 출금되는 계좌(출급, 이체 시 사용)
+    // 자금이 출금되는 계좌(출금, 이체 시 사용)
     @ManyToOne
     private Account sourceAccount;
 
@@ -49,11 +51,11 @@ public class Payment {
         this.status = status;
     }
 
-    public Payment createDeposit(String referenceNumber, Account sourceAccount, BigDecimal amount, String description) {
+    public static Payment createDeposit(String referenceNumber, Account account, BigDecimal amount, String description) {
         Payment payment = new Payment();
         payment.referenceNumber = referenceNumber;
-        payment.sourceAccount = sourceAccount;
-        payment.targetAccount = sourceAccount;
+        payment.sourceAccount = account;
+        payment.targetAccount = null;
         payment.amount = amount;
         payment.description = description;
         payment.type = PaymentType.DEPOSIT;
@@ -62,11 +64,11 @@ public class Payment {
         return payment;
     }
 
-    public Payment createWithdrawal(String referenceNumber, Account sourceAccount, BigDecimal amount, String description) {
+    public static Payment createWithdrawal(String referenceNumber, Account account, BigDecimal amount, String description) {
         Payment payment = new Payment();
         payment.referenceNumber = referenceNumber;
-        payment.sourceAccount = sourceAccount;
-        payment.targetAccount = sourceAccount;
+        payment.sourceAccount = null;
+        payment.targetAccount = account;
         payment.amount = amount;
         payment.description = description;
         payment.type = PaymentType.WITHDRAWAL;

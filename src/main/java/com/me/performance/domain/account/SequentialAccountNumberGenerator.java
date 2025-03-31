@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class SequentialAccountGenerateNumber implements AccountGenerateNumber {
+public class SequentialAccountNumberGenerator implements AccountGenerator {
 
     private final AtomicLong sequence = new AtomicLong(1000_0000L);
     private final AccountRepository accountRepository;

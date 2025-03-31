@@ -34,7 +34,7 @@ public class Account {
         this.balance = balance;
     }
 
-    public static Account create(String ownerName, BigDecimal initialBalance, AccountGenerateNumber accountGenerateNumber) {
+    public static Account create(String ownerName, BigDecimal initialBalance, AccountGenerator accountGenerateNumber) {
         Account account = new Account();
         account.accountNumber = accountGenerateNumber.generateUniqNumber();
         account.ownerName = ownerName;
@@ -44,6 +44,10 @@ public class Account {
     }
 
     public void increaseBalance(BigDecimal amount) {
+        // 최소금액 미달 조건
+        if (amount.compareTo(new BigDecimal("1000")) <= 0) {
+            throw new IllegalArgumentException("입금 최소 금액 미달. 요청 금액=" + amount);
+        }
         balance = balance.add(amount);
     }
 

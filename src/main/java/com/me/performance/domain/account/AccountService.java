@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final AccountGenerateNumber accountGenerateNumber;
+    private final AccountGenerator accountGenerateNumber;
 
     public AccountResponse read(Long id) {
         return accountRepository.findById(id)

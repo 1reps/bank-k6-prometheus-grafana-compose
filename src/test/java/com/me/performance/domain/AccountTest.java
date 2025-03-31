@@ -4,7 +4,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import com.me.performance.domain.account.Account;
-import com.me.performance.domain.account.AccountGenerateNumber;
+import com.me.performance.domain.account.AccountGenerator;
 import com.me.performance.domain.account.AccountRepository;
 import java.math.BigDecimal;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 class AccountTest {
 
     @Autowired
-    private AccountGenerateNumber accountGenerateNumber;
+    private AccountGenerator accountGenerateNumber;
 
     @Autowired
     private AccountRepository accountRepository;

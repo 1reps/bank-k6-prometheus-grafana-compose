@@ -1,6 +1,6 @@
 package com.me.performance.domain.account;
 
-public interface AccountGenerateNumber {
+public interface AccountGenerator {
 
     String generateUniqNumber();
 
