@@ -8,18 +8,19 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class AccountService {
 
     private final AccountRepository accountRepository;
     private final AccountGenerator accountGenerator;
 
+    @Transactional(readOnly = true)
     public AccountResponse read(Long accountId) {
         return accountRepository.findById(accountId)
             .map(AccountResponse::from)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
     }
 
+    @Transactional(readOnly = true)
     public List<AccountResponse> readAll() {
         return accountRepository.findAll().stream()
             .map(AccountResponse::from)
