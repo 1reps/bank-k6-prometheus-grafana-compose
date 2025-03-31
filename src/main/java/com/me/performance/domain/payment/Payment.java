@@ -27,18 +27,16 @@ public class Payment {
 
     private String referenceNumber;
 
-    // 자금이 출금되는 계좌(출금, 이체 시 사용)
     @ManyToOne
-    private Account sourceAccount;
+    private Account sourceAccount; // 자금이 출금되는 계좌(출금, 이체 시 사용)
 
-    // 자금이 입금되는 계좌(입금, 이체 시 사용)
     @ManyToOne
-    private Account targetAccount;
+    private Account targetAccount; // 자금이 입금되는 계좌(입금, 이체 시 사용)
 
     private BigDecimal amount;
     private String description;
-    private PaymentType type; // DEPOSIT, WITHDRAWAL, TRANSFER
-    private PaymentStatus status; // COMPLETED, FAILED
+    private PaymentType type;
+    private PaymentStatus status;
     private LocalDateTime createdAt;
 
     public static Payment createDeposit(String referenceNumber, Account account, BigDecimal amount, String description) {

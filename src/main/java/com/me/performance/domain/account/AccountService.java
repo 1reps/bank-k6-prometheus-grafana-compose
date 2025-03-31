@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final AccountGenerator accountGenerateNumber;
+    private final AccountGenerator accountGenerator;
 
     public AccountResponse read(Long accountId) {
         return accountRepository.findById(accountId)
@@ -28,7 +28,7 @@ public class AccountService {
 
     @Transactional
     public AccountResponse makeAccount(String ownerName) {
-        Account account = Account.create(ownerName, BigDecimal.ZERO, accountGenerateNumber);
+        Account account = Account.create(ownerName, BigDecimal.ZERO, accountGenerator.generateUniqNumber());
         return AccountResponse.from(accountRepository.save(account));
     }
 

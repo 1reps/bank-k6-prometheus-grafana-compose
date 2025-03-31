@@ -28,9 +28,9 @@ public class Account {
     private BigDecimal balance;
     private LocalDateTime createdAt;
 
-    public static Account create(String ownerName, BigDecimal initialBalance, AccountGenerator accountGenerateNumber) {
+    public static Account create(String ownerName, BigDecimal initialBalance, String accountNumber) {
         Account account = new Account();
-        account.accountNumber = accountGenerateNumber.generateUniqNumber();
+        account.accountNumber = accountNumber;
         account.ownerName = ownerName;
         account.balance = initialBalance;
         account.createdAt = LocalDateTime.now();

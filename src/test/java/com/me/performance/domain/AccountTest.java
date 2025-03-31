@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 class AccountTest {
 
     @Autowired
-    private AccountGenerator accountGenerateNumber;
+    private AccountGenerator accountGenerator;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -39,7 +39,7 @@ class AccountTest {
     @DisplayName("계좌 생성 테스트")
     void testCreateAccount() {
         // given
-        Account account = Account.create(ownerName, initialBalance, accountGenerateNumber);
+        Account account = Account.create(ownerName, initialBalance, accountGenerator.generateUniqNumber());
 
         // then
         Account savedAccount = accountRepository.save(account);
@@ -52,7 +52,7 @@ class AccountTest {
     @DisplayName("계좌 잔액 증가 테스트")
     void testIncreaseBalance() {
         // given
-        Account account = Account.create(ownerName, initialBalance, accountGenerateNumber);
+        Account account = Account.create(ownerName, initialBalance, accountGenerator.generateUniqNumber());
         BigDecimal depositAmount = new BigDecimal("5000.00");
         BigDecimal expectedBalance = initialBalance.add(depositAmount);
 
@@ -67,7 +67,7 @@ class AccountTest {
     @DisplayName("계좌 잔액 감소 테스트 - 정상 출금")
     void testDecreaseBalance() {
         // given
-        Account account = Account.create(ownerName, initialBalance, accountGenerateNumber);
+        Account account = Account.create(ownerName, initialBalance, accountGenerator.generateUniqNumber());
         BigDecimal withdrawAmount = new BigDecimal("5000.00");
         BigDecimal expectedBalance = initialBalance.subtract(withdrawAmount);
 
@@ -82,7 +82,7 @@ class AccountTest {
     @DisplayName("계좌 잔액 감소 테스트 - 잔액 부족 예외 발생")
     void testDecreaseBalanceWithInsufficientFunds() {
         // given
-        Account account = Account.create(ownerName, initialBalance, accountGenerateNumber);
+        Account account = Account.create(ownerName, initialBalance, accountGenerator.generateUniqNumber());
         BigDecimal withdrawAmount = new BigDecimal("15000.00"); // 초기 잔액보다 큰 금액
 
         // when & then
@@ -95,7 +95,7 @@ class AccountTest {
     @DisplayName("0원 출금 테스트")
     void testZeroAmountWithdrawal() {
         // given
-        Account account = Account.create(ownerName, initialBalance, accountGenerateNumber);
+        Account account = Account.create(ownerName, initialBalance, accountGenerator.generateUniqNumber());
         BigDecimal withdrawAmount = BigDecimal.ZERO;
 
         // when
