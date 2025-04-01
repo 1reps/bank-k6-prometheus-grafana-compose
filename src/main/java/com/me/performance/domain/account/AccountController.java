@@ -1,5 +1,6 @@
 package com.me.performance.domain.account;
 
+import java.math.BigDecimal;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,8 @@ public class AccountController {
     }
 
     @PostMapping
-    public AccountResponse makeAccount(String ownerName) {
-        return accountService.makeAccount(ownerName);
+    public AccountResponse makeAccount(String ownerName, BigDecimal initialBalance) {
+        return accountService.makeAccount(ownerName, initialBalance);
     }
 
 }

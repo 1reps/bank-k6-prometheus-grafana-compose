@@ -32,7 +32,7 @@ public class Account {
         Account account = new Account();
         account.accountNumber = accountNumber;
         account.ownerName = ownerName;
-        account.balance = initialBalance;
+        account.balance = initialBalance == null ? BigDecimal.ZERO : initialBalance;
         account.createdAt = LocalDateTime.now();
         return account;
     }

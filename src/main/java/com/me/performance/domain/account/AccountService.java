@@ -28,8 +28,9 @@ public class AccountService {
     }
 
     @Transactional
-    public AccountResponse makeAccount(String ownerName) {
-        Account account = Account.create(ownerName, BigDecimal.ZERO, accountGenerator.generateUniqNumber());
+    public AccountResponse makeAccount(String ownerName, BigDecimal initialBalance) {
+        Account account = Account.create(ownerName, initialBalance, accountGenerator.generateUniqNumber());
+
         return AccountResponse.from(accountRepository.save(account));
     }
 

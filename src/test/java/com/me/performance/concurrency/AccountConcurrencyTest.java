@@ -5,6 +5,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import com.me.performance.domain.account.Account;
 import com.me.performance.domain.account.AccountRepository;
 import com.me.performance.domain.account.AccountService;
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class AccountConcurrencyTest {
 
                 executorService.submit(() -> {
                     try {
-                        accountService.makeAccount(ownerName);
+                        accountService.makeAccount(ownerName, BigDecimal.valueOf(10000));
                     } finally {
                         latch.countDown();
                     }
