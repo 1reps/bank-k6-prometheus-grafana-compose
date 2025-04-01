@@ -50,4 +50,9 @@ public class AccountService {
 
         return account;
     }
+
+    public Long readBalance(Long accountId) {
+        return accountRepository.findBalanceById(accountId)
+            .orElse(0L);
+    }
 }

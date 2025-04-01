@@ -27,12 +27,12 @@ public class PaymentController {
         return paymentService.read(paymentId);
     }
 
-    @PostMapping("/deposit/{accountId}")
+    @PostMapping("/accounts/{accountId}/deposit")
     public void deposit(@PathVariable Long accountId, BigDecimal amount) {
         paymentManager.depositByAccount(accountId, amount);
     }
 
-    @PostMapping("/withdrawal/{accountId}")
+    @PostMapping("/accounts/{accountId}/withdrawal")
     public void withdrawal(@PathVariable Long accountId, BigDecimal amount) {
         paymentManager.withdrawalByAccount(accountId, amount);
     }

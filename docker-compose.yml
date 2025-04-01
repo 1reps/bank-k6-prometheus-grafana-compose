@@ -65,7 +65,7 @@ services:
     networks:
       - app-network
     # 실행할 때는 아래 명령어 사용:
-    # command: run /scripts/bank-performance-test.js
+    command: run /scripts/bank-performance-test.js
 
 networks:
   app-network:
