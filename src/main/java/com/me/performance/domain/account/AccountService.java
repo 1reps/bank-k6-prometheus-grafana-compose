@@ -36,7 +36,7 @@ public class AccountService {
         return AccountResponse.from(accountRepository.save(account));
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public synchronized Account verifyDepositBalance(Long accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
@@ -45,7 +45,7 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public synchronized Account verifyWithdrawalBalance(Long accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
