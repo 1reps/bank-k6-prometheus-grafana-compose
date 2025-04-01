@@ -2,8 +2,10 @@ package com.me.performance.domain.account;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -34,22 +36,22 @@ public class AccountService {
         return AccountResponse.from(accountRepository.save(account));
     }
 
-    public Account verifyDepositBalance(Long accountId, BigDecimal amount) {
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public synchronized Account verifyDepositBalance(Long accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
 
         account.increaseBalance(amount);
-
-        return account;
+        return accountRepository.save(account);
     }
 
-    public Account verifyWithdrawalBalance(Long accountId, BigDecimal amount) {
+    @Transactional(isolation = Isolation.SERIALIZABLE)
+    public synchronized Account verifyWithdrawalBalance(Long accountId, BigDecimal amount) {
         Account account = accountRepository.findById(accountId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
 
         account.decreaseBalance(amount);
-
-        return account;
+        return accountRepository.save(account);
     }
 
     public Long readBalance(Long accountId) {

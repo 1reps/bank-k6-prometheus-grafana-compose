@@ -52,7 +52,7 @@ public class Account {
     }
 
     private boolean isLessThanMin(BigDecimal amount) {
-        return amount.compareTo(BigDecimal.valueOf(1000L)) <= 0;
+        return amount.compareTo(BigDecimal.valueOf(1000L)) < 0; // '<=' 대신 '<' 사용 (1000원은 허용)
     }
 
     private boolean isBalanceLessThan(BigDecimal amount) {

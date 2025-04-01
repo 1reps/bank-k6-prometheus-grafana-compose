@@ -5,6 +5,7 @@ import com.me.performance.domain.account.AccountService;
 import java.math.BigDecimal;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -17,14 +18,14 @@ public class PaymentManager {
     private final AccountService accountService;
     private final PaymentService paymentService;
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void depositByAccount(Long accountId, BigDecimal amount) {
         Account account = accountService.verifyDepositBalance(accountId, amount);
 
         paymentService.deposit(account, amount);
     }
 
-    @Transactional
+    @Transactional(isolation = Isolation.SERIALIZABLE)
     public void withdrawalByAccount(Long accountId, BigDecimal amount) {
         Account account = accountService.verifyWithdrawalBalance(accountId, amount);
 
