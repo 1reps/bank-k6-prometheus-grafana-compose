@@ -7,6 +7,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -38,6 +39,9 @@ public class Payment {
     private PaymentType type;
     private PaymentStatus status;
     private LocalDateTime createdAt;
+
+    @Version
+    private Long version;
 
     public static Payment createDeposit(String referenceNumber, Account account, BigDecimal amount, String description) {
         Payment payment = new Payment();
