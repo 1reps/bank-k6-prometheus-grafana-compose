@@ -2,6 +2,8 @@ package com.me.performance.domain.payment;
 
 import com.me.performance.domain.account.Account;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -35,8 +37,13 @@ public class Payment {
 
     private BigDecimal amount;
     private String description;
+
+    @Enumerated(EnumType.STRING)
     private PaymentType type;
+
+    @Enumerated(EnumType.STRING)
     private PaymentStatus status;
+
     private LocalDateTime createdAt;
 
     public static Payment createDeposit(String referenceNumber, Account account, BigDecimal amount, String description) {

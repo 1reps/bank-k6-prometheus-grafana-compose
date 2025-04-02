@@ -29,25 +29,23 @@ public class PaymentService {
     }
 
     public void deposit(Account account, BigDecimal amount) {
-        paymentRepository.save(
-            Payment.createDeposit(
-                referenceNumberGenerator.generateDepositReferenceNumber(),
-                account,
-                amount,
-                null
-            )
+        Payment newPayment = Payment.createDeposit(
+            referenceNumberGenerator.generateDepositReferenceNumber(),
+            account,
+            amount,
+            null
         );
+        paymentRepository.save(newPayment);
     }
 
     public void withdrawal(Account account, BigDecimal amount) {
-        paymentRepository.save(
-            Payment.createWithdrawal(
-                referenceNumberGenerator.generateWithdrawalReferenceNumber(),
-                account,
-                amount,
-                null
-            )
+        Payment newPayment = Payment.createWithdrawal(
+            referenceNumberGenerator.generateWithdrawalReferenceNumber(),
+            account,
+            amount,
+            null
         );
+        paymentRepository.save(newPayment);
     }
 
 }
