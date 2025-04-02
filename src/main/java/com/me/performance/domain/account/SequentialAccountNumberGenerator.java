@@ -17,7 +17,7 @@ public class SequentialAccountNumberGenerator implements AccountGenerator {
         String candidateNumber = "";
         long next;
         boolean exists = true;
-        while(exists) {
+        while (exists) {
             next = sequence.incrementAndGet();
             candidateNumber = formatAccountNumber(next);
             exists = accountRepository.existsByAccountNumber(candidateNumber);
@@ -26,10 +26,12 @@ public class SequentialAccountNumberGenerator implements AccountGenerator {
     }
 
     private String formatAccountNumber(long number) {
-        return String.format("%04d-%04d-%04d",
+        return String.format("%03d-%06d-%02d-%03d",
             PREFIX_ACCOUNT_NUMBER,
             number / 10000L % 10000,
-            number % 10000);
+            number % 10000,
+            number % 10000
+        );
     }
 
 }
