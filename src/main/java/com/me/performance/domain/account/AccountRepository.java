@@ -10,7 +10,11 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     boolean existsByAccountNumber(String accountNumber);
 
-    @Query(value = "SELECT a.balance FROM Account a WHERE a.id = :accountId")
+    @Query(value = """
+            SELECT a.balance 
+            FROM Account a 
+            WHERE a.id = :accountId
+        """)
     Optional<Long> findBalanceById(Long accountId);
 
 }
