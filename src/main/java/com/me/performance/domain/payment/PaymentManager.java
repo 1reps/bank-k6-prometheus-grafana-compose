@@ -18,14 +18,14 @@ public class PaymentManager {
     private final AccountService accountService;
     private final PaymentService paymentService;
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public void depositByAccount(Long accountId, BigDecimal amount) {
         Account account = accountService.verifyDepositBalance(accountId, amount);
 
         paymentService.deposit(account, amount);
     }
 
-    @Transactional(isolation = Isolation.SERIALIZABLE)
+    @Transactional
     public void withdrawalByAccount(Long accountId, BigDecimal amount) {
         Account account = accountService.verifyWithdrawalBalance(accountId, amount);
 

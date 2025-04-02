@@ -43,7 +43,9 @@ public class AccountService {
         Account account = accountRepository.findById(accountId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
 
-        account.increaseBalance(amount);
+        synchronized (account) {
+            account.increaseBalance(amount);
+        }
         return accountRepository.save(account);
     }
 
@@ -51,7 +53,9 @@ public class AccountService {
         Account account = accountRepository.findById(accountId)
             .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 계좌 입니다. accountId=" + accountId));
 
-        account.decreaseBalance(amount);
+        synchronized (account) {
+            account.decreaseBalance(amount);
+        }
         return accountRepository.save(account);
     }
 }
