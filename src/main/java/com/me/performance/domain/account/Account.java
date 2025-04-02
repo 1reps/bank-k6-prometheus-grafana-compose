@@ -5,6 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Version;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.AccessLevel;
@@ -27,6 +28,9 @@ public class Account {
     private String ownerName;
     private BigDecimal balance;
     private LocalDateTime createdAt;
+
+    @Version
+    private Long version;
 
     public static Account create(String ownerName, BigDecimal initialBalance, String accountNumber) {
         Account account = new Account();
